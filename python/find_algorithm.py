@@ -45,7 +45,7 @@ for name, model in models:
     #Selection des indices pour la cross validation
     kfold = model_selection.KFold(n_splits=10, random_state=7)
     #Calcul des scores
-    cross_val_results = model_selection.cross_val_score(model, X, y, cv=kfold, scoring='accuracy')
+    cross_val_results = model_selection.cross_val_score(model, X, y, cv=kfold, scoring='neg_log_loss')
     results.append(cross_val_results)
     names.append(name)
 

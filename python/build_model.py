@@ -4,8 +4,8 @@ import numpy as numpy
 import pandas as pandas
 #Librairie Machine Learning
 import sklearn
-#Algorithme DecisionTreeClassifier
-from sklearn.tree import DecisionTreeClassifier
+#Algorithme LogisticRegression
+from sklearn.linear_model import LogisticRegression
 #Librairie CoreML
 import coremltools
 
@@ -22,15 +22,15 @@ X = numpy.array(dataframe.drop(['final_status'],1))
 y = numpy.array(dataframe['final_status'])
 
 #Initialisation de l'algorithme
-classifier = DecisionTreeClassifier()
+logisticRegression = LogisticRegression()
 #Entrainement du modele a partir des donnees
-classifier.fit(X, y)
+logisticRegression.fit(X, y)
 
 #Conversion du modele au format CoreML
-coreml_model = coremltools.converters.sklearn.convert(classifier, ['goal', 'backersCount', 'duration'], ['prediction', 'precision'])
+coreml_model = coremltools.converters.sklearn.convert(logisticRegression, ['goal', 'backersCount', 'duration'], ['prediction', 'precision'])
 coreml_model.author = 'Octo Technology'
 coreml_model.license = 'Unknown'
-coreml_model.short_description = 'KickStarter success prediction using DecisionTreeClassifier'
+coreml_model.short_description = 'KickStarter success prediction using LogisticRegression'
 coreml_model.input_description['goal'] = 'Goal of the project.'
 coreml_model.input_description['backersCount'] = 'Contributors count for the project.'
 coreml_model.input_description['duration'] = 'Duration of the project.'
